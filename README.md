@@ -22,3 +22,7 @@ GitHub Pages; a Poki-packaged build follows later.
 ## Status
 
 Beta 1 — first three players: Laura, Ivy, and Amy. 🎉
+
+## Credits
+
+- Background music: royalty-free track from [Pixabay](https://pixabay.com/music/) (`cozy-bgm.mp3`, Pixabay ID 539205). Toggle with the speaker button; off by default.
