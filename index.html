@@ -213,12 +213,18 @@ document.querySelectorAll('.hair').forEach(h=>h.addEventListener('click',()=>{
   document.querySelectorAll('.hair').forEach(x=>x.classList.remove('sel')); h.classList.add('sel');
 }));
 
-// stars
+// stars — persisted so Ivy's hoard survives reloads. These are NOT redeemable
+// (unlike the Planner's stars); they only ever go up.
+const STAR_KEY='cozy_closet_stars';
 const sc=document.getElementById('starCount');
+let stars=parseInt(localStorage.getItem(STAR_KEY),10);
+if(!Number.isFinite(stars)) stars=10000;   // Amy's preload gift — Ivy's "max" 😄
+function setStars(n){ stars=n; sc.textContent=stars.toLocaleString(); localStorage.setItem(STAR_KEY,String(stars)); }
+setStars(stars);
 // ⭐ IVY'S STAR FARM — tapping Finish repeatedly keeps stacking stars. This is
 // NOT a bug. The user found the hole, loves it, and begged us not to fix it.
 // Leave it. Only revisit if Cozy Closet ever ships to public users. — Oscar
-document.getElementById('finish').addEventListener('click',()=>{ sc.textContent=(+sc.textContent)+5; sparkleBurst(24); });
+document.getElementById('finish').addEventListener('click',()=>{ setStars(stars+5); sparkleBurst(24); });
 
 // photo -> My Looks tray (max 5)
 const tray=document.getElementById('tray'); let looks=0;
@@ -238,7 +244,7 @@ document.getElementById('photo').addEventListener('click',()=>{
 
 // start over
 document.getElementById('reset').addEventListener('click',()=>{
-  selectedTops.clear(); swap(BASE,null); tray.innerHTML=''; looks=0; sc.textContent='30';
+  selectedTops.clear(); swap(BASE,null); tray.innerHTML=''; looks=0; // keep stars — they persist now
   document.querySelectorAll('.hair').forEach((x,i)=>x.classList.toggle('sel',i===0));
 });
 </script>
